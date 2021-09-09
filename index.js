@@ -9,27 +9,18 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-function first() {
-  var child = require('child_process').exec(PATH + `/database/startdb.sh`)
-child.stdout.pipe(process.stdout)
-child.on('exit', function() {
-  process.exit()
-});
-}
-
 function second() {
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
   })
 }
 
-function third() {
-  shell.exec(PATH + `/database/copy.sh`);
+function init_bd() {
+  shell.exec(PATH + `/database/startbd.sh`);
 }
 
 function go() {
-  first();
-  second();
+  init_bd()
   third();
 }
 
