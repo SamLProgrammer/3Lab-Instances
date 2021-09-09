@@ -16,12 +16,12 @@ function second() {
 }
 
 function init_bd() {
-  shell.exec(PATH + `/database/startbd.sh`);
+  shell.exec(PATH + `/database/startdb.sh`);
 }
 
 function go() {
   init_bd()
-  third();
+  second();
 }
 
 app.post('/monitors', (req, res) => {
