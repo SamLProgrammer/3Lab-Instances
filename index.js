@@ -10,7 +10,11 @@ app.get('/', (req, res) => {
 })
 
 function first() {
-  shell.exec(PATH + `/database/startdb.sh`);
+  var child = require('child_process').exec(PATH + `/database/startdb.sh`)
+child.stdout.pipe(process.stdout)
+child.on('exit', function() {
+  process.exit()
+});
 }
 
 function second() {
