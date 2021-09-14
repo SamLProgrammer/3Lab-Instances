@@ -20,9 +20,13 @@ function init_bd() {
 }
 
 function go() {
-  init_bd()
+  // init_bd()
   second();
 }
+
+app.get('/query', (req, res) =>  {
+  res.send({id : req.query.id})
+})
 
 app.post('/monitors', (req, res) => {
 
