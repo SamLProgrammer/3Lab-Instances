@@ -6,7 +6,7 @@ let mysql = require('mysql');
 const port = 3000
 const PATH = process.cwd();
 
-const ls = spawn("ls", ["-la"]);
+// const ls = spawn("ls", ["-la"]);
 
 app.get('/cpuStatus', (req, res) => {
   require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
