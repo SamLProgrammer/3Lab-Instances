@@ -9,7 +9,7 @@ const PATH = process.cwd();
 const ls = spawn("ls", ["-la"]);
 
 app.get('/cpuStatus', (req, res) => {
-  require("child_process").spawn('bash', ['./bashes/script.sh'], {
+  require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
     cwd: process.cwd(),
     detached: true,
     stdio: "inherit"
