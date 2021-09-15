@@ -16,6 +16,14 @@ app.get('/cpuStatus', (req, res) => {
   });
 })
 
+app.get('/ramStatus', (req, res) => {
+  require("child_process").spawn('bash', ['./bashes/ramMonitor.sh'], {
+    cwd: process.cwd(),
+    detached: true,
+    stdio: "inherit"
+  });
+})
+
 
 // app.get('/cpuStatus', (req, res) => {
 //   exec('sh bashes/cpuMonitor.sh',
