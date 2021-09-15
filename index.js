@@ -10,20 +10,24 @@ const PATH = process.cwd();
 const ls = spawn("ls", ["-la"]);
 
 app.get('/cpuStatus', (req, res) => {
-  console.log('me llamas we?')
   ls.stdout.on("data", data => {
     console.log(`stdout: ${data}`);
+    console.log('1')
     res.send({ msg: data })
   });
+
   ls.stderr.on("data", data => {
+    console.log('2')
     console.log(`stderr: ${data}`);
   });
-
+  
   ls.on('error', (error) => {
+    console.log('3')
     console.log(`error: ${error.message}`);
   });
-
+  
   ls.on("close", code => {
+    console.log('4')
     console.log(`child process exited with code ${code}`);
   });
 })
