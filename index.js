@@ -15,20 +15,23 @@ app.get('/cpuStatus', (req, res) => {
     console.log('1')
     res.send({ msg: data })
   });
-
+  
   ls.stderr.on("data", data => {
     console.log('2')
     console.log(`stderr: ${data}`);
+    res.send({ msg: data })
   });
   
   ls.on('error', (error) => {
     console.log('3')
     console.log(`error: ${error.message}`);
+    res.send({ msg: error.message })
   });
   
   ls.on("close", code => {
     console.log('4')
     console.log(`child process exited with code ${code}`);
+    res.send({msg: code})
   });
 })
 
