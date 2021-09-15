@@ -12,13 +12,16 @@ var con = mysql.createConnection({
   database: "sampledb"
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
-
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  con.connect(function(err) {
+    if (err) throw err;
+    //Select all customers and return the result object:
+    con.query("SELECT * FROM users", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+      res.send(result)
+    });
+  });
 })
 
 app.listen(port, () => {
