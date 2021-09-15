@@ -14,7 +14,7 @@ app.get('/cpuStatus', (req, res) => {
     detached: true,
     stdio: "inherit"
   }).on('data', (data) => {
-    console.log(`stdout: ${data}`);
+    res.send({cpu: data})
   });
 })
 
@@ -24,7 +24,7 @@ app.get('/ramStatus', (req, res) => {
     detached: true,
     stdio: "inherit"
   }).on('data', (data) => {
-    console.log(`stdout: ${data}`);
+    res.send({ram: data})
   });;
 })
 
