@@ -47,7 +47,7 @@ app.get('/query', (req, res) => {
   res.send({ id: req.query.id })
   con.connect(function (err) {
     if (err) throw err;
-    con.query("SELECT name FROM users where user_id = " + req.query.id, function (err, result, fields) {
+    con.query("SELECT user_name FROM users where user_id = " + req.query.id, function (err, result, fields) {
       if (err) throw err;
       console.log(result);
       res.send(result)
