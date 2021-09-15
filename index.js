@@ -13,6 +13,8 @@ app.get('/cpuStatus', (req, res) => {
     cwd: process.cwd(),
     detached: true,
     stdio: "inherit"
+  }).on('data', (data) => {
+    console.log(`stdout: ${data}`);
   });
 })
 
@@ -21,7 +23,9 @@ app.get('/ramStatus', (req, res) => {
     cwd: process.cwd(),
     detached: true,
     stdio: "inherit"
-  });
+  }).on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });;
 })
 
 
