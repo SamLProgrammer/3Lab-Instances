@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/SamLProgrammer/3Lab-Instances#readme",
   "dependencies": {
+    "childprocess": "^2.0.2",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "shelljs": "^0.8.4"
