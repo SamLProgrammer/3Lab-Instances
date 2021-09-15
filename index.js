@@ -8,7 +8,7 @@ const { exec } = require('child_process');
 const port = 3000
 const PATH = process.cwd();
 
-app('/cpuStatus', (req, res) => {
+app.get('/cpuStatus', (req, res) => {
   exec('sh bashes/cpuMonitor.sh',
   (error, stdout, stderr) => {
       console.log(stdout);
