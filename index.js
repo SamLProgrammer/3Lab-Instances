@@ -10,7 +10,7 @@ const PATH = process.cwd();
 app.get('/cpuStatus', (req, res) => {
   const ls = spawn('bash', ['./bashes/cpuMonitor.sh']);
   ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
+    res.send({cpu: data});
   });
   ls.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
