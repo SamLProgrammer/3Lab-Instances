@@ -2,19 +2,22 @@ const express = require('express')
 const app = express()
 const shell = require('shelljs')
 let mysql = require('mysql');
+const { spawn } = require('child_process');
 
 const port = 3000
 const PATH = process.cwd();
 
 app.get('/cpuStatus', (req, res) => {
-  require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
-    cwd: process.cwd(),
-    detached: true,
-    stdio: "inherit"
-  }).on('data', (data) => {
-    console('your mom + ' + data)
+  const ls = spawn('bash', ['./bashes/cpuMonitor.sh']);
+  ls.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
   });
-  res.send({cpu: something()})
+  ls.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  ls.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
 })
 
 app.get('/ramStatus', (req, res) => {
