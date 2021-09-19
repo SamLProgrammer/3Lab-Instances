@@ -10,7 +10,8 @@ const PATH = process.cwd();
 app.get('/cpuStatus', (req, res) => {
   const ls = spawn('bash', ['./bashes/cpuMonitor.sh']);
   ls.stdout.on('data', (data) => {
-    res.send({ram: data.toString()});
+    console.log(new Float32Array(new Uint8Array(data).buffer)[0])
+    res.send({cpu: parseFloat(data.toString())});
   });
   ls.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
