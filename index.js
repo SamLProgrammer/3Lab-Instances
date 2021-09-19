@@ -8,10 +8,11 @@ const port = 3000
 const PATH = process.cwd();
 
 app.get('/cpuStatus', (req, res) => {
-  const ls = spawn('bash', ['./bashes/cpuMonitor.sh'], { stdio: 'ignore' });
+  const ls = spawn('bash', ['./bashes/cpuMonitor.sh']);
   ls.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
     console.log('cpu: ' + data);
+    console.log(data.toString())
     res.send({ram: data});
   });
   ls.stderr.on('data', (data) => {
