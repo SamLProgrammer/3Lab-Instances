@@ -11,6 +11,8 @@ app.get('/cpuStatus', (req, res) => {
   const ls = spawn('bash', ['./bashes/cpuMonitor.sh']);
   ls.stdout.on('data', (data) => {
     const cpuUsage = data.toString();
+    console.log(' float ' + parseFloat(cpuUsage.substring(0,cpuUsage.length-2)))
+    console.log(' double ' + parseDouble(cpuUsage.substring(0,cpuUsage.length-2)))
     res.send({cpu: cpuUsage.substring(0,cpuUsage.length-2)});
   });
   ls.stderr.on('data', (data) => {
