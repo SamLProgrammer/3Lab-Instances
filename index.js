@@ -7,13 +7,13 @@ const port = 3000
 const PATH = process.cwd();
 
 app.get('/cpuStatus', (req, res) => {
-  const something = () => { return require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
+  require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
     cwd: process.cwd(),
     detached: true,
     stdio: "inherit"
   }).on('data', (data) => {
+    console('your mom + ' + data)
   });
-}
   res.send({cpu: something()})
 })
 
