@@ -6,16 +6,15 @@ let mysql = require('mysql');
 const port = 3000
 const PATH = process.cwd();
 
-// const ls = spawn("ls", ["-la"]);
-
 app.get('/cpuStatus', (req, res) => {
-  require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
+  const something = () => { return require("child_process").spawn('bash', ['./bashes/cpuMonitor.sh'], {
     cwd: process.cwd(),
     detached: true,
     stdio: "inherit"
   }).on('data', (data) => {
-    res.send({cpu: data})
   });
+}
+  res.send({cpu: something()})
 })
 
 app.get('/ramStatus', (req, res) => {
@@ -24,22 +23,9 @@ app.get('/ramStatus', (req, res) => {
     detached: true,
     stdio: "inherit"
   }).on('data', (data) => {
-    res.send({ram: data})
-  });;
+  });
+  res.send({ram: data})
 })
-
-
-// app.get('/cpuStatus', (req, res) => {
-//   exec('sh bashes/cpuMonitor.sh',
-//   (error, stdout, stderr) => {
-//       console.log(stdout);
-//       res.send({msg: stdout});
-//       console.log(stderr);
-//       if (error !== null) {
-//           console.log(`exec error: ${error}`);
-//       }
-//   });
-// })
 
 var con = mysql.createConnection({
   host: "localhost",
