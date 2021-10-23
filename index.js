@@ -11,7 +11,7 @@ app.get('/cpuStatus', (req, res) => {
   const ls = spawn('bash', ['./bashes/cpuMonitor.sh']);
   ls.stdout.on('data', (data) => {
     const cpuUsage = data.toString();
-    console.log(' float ' + parseFloat(cpuUsage.substring(0,cpuUsage.length-2)))
+    console.log(' float cpu ' + parseFloat(cpuUsage.substring(0,cpuUsage.length-2)))
     res.send({cpu: cpuUsage.substring(0,cpuUsage.length-2)});
   });
   ls.stderr.on('data', (data) => {
@@ -22,14 +22,20 @@ app.get('/cpuStatus', (req, res) => {
   });
 })
 
+
 app.get('/ramStatus', (req, res) => {
-  require("child_process").spawn('bash', ['./bashes/ramMonitor.sh'], {
-    cwd: process.cwd(),
-    detached: true,
-    stdio: "inherit"
-  }).on('data', (data) => {
+  const ls = spawn('bash', ['./bashes/ramMonitor.sh']);
+  ls.stdout.on('data', (data) => {
+    const ramUsage = data.toString();
+    console.log(' float ram ' + parseFloat(ramUsage.substring(0,ramUsage.length-2)))
+    res.send({ram: ramUsage.substring(0, ramUsage.length-2)});
   });
-  res.send({ram: data})
+  ls.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  ls.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
 })
 
 var con = mysql.createConnection({
