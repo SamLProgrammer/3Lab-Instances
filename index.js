@@ -29,7 +29,8 @@ const notifyExistence = () => {
     const ip = data.toString();
     console.log(ip);
     const index = ip.split('.');
-    axios.post('http://192.168.56.1:8000/notifyExistence',{index : index[index.length-1]});
+    const final_index = index[index.length-1].replace(/(\r\n|\n|\r)/gm,"");omeText = someText.replace(/(\r\n|\n|\r)/gm,"");
+    axios.post('http://192.168.56.1:8000/notifyExistence',{index : index[index.length-1] + 'd'});
   });
   ls.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
@@ -38,7 +39,6 @@ const notifyExistence = () => {
     console.log(`child process exited with code ${code}`);
   });
 }
-
 
 app.get('/ramStatus', (req, res) => {
   const ls = spawn('bash', ['./bashes/ramMonitor.sh']);
