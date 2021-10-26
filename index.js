@@ -26,7 +26,7 @@ const readIP = () => {
   const ls = spawn('bash', ['./bashes/getIP.sh']);
   ls.stdout.on('data', (data) => {
     const ip = data.toString();
-    const index = ip.charAt(ip.length);
+    const index = ip.charAt(ip.length-1);
     console.log('My index: ' +  index);
   });
   ls.stderr.on('data', (data) => {
