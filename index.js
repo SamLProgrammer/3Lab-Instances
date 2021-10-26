@@ -1,4 +1,5 @@
 const express = require('express')
+const axios = require('axios')
 const app = express()
 const shell = require('shelljs')
 let mysql = require('mysql');
@@ -22,13 +23,13 @@ app.get('/cpuStatus', (req, res) => {
   });
 })
 
-const readIP = () => {
+const notifyExistence = () => {
   const ls = spawn('bash', ['./bashes/getIP.sh']);
   ls.stdout.on('data', (data) => {
     const ip = data.toString();
     console.log(ip);
     const index = ip.split('.');
-    console.log('My index: ' +  index[index.length-1]);
+    axios.post('http://192.168.56.1:8000/notifyExistence',{index : index[index.length-1]});
   });
   ls.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
@@ -54,9 +55,6 @@ app.get('/ramStatus', (req, res) => {
   });
 })
 
-const notifyExistence = () => {
-
-}
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -70,7 +68,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-  readIP();
+  notifyExistence();
 })
 
 app.get('/query', (req, res) => {
