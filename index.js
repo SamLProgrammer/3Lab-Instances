@@ -22,6 +22,21 @@ app.get('/cpuStatus', (req, res) => {
   });
 })
 
+const readIP = () => {
+  const ls = spawn('bash', ['./bashes/getIP.sh']);
+  ls.stdout.on('data', (data) => {
+    const ip = data.toString();
+    const index = ip.charAt(ip.length());
+    console.log('My index: ' +  index);
+  });
+  ls.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  ls.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
+}
+
 
 app.get('/ramStatus', (req, res) => {
   const ls = spawn('bash', ['./bashes/ramMonitor.sh']);
@@ -38,6 +53,10 @@ app.get('/ramStatus', (req, res) => {
   });
 })
 
+const notifyExistence = () => {
+
+}
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -50,6 +69,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
+  readIP();
 })
 
 app.get('/query', (req, res) => {
