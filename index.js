@@ -30,7 +30,7 @@ const notifyExistence = () => {
     console.log(ip);
     const index = ip.split('.');
     let final_index = index[index.length-1].replace(/(\r\n|\n|\r)/gm,"");
-    axios.post('http://192.168.56.1:8000/notifyExistence',{index : final_index.tirm()});
+    axios.post('http://192.168.56.1:8000/notifyExistence',{index : final_index.trim()});
   });
   ls.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
